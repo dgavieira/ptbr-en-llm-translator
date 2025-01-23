@@ -17,6 +17,9 @@ class Translator:
         Returns:
             str: The translated sentence.
         """
+        if not sentence.strip():  # Check for empty or whitespace-only strings
+            return ""  # Return an empty string explicitly
+
         inputs = self.tokenizer(sentence, return_tensors="pt", truncation=True)
         translated = self.model.generate(**inputs)
         return self.tokenizer.decode(translated[0], skip_special_tokens=True)
